@@ -52,4 +52,9 @@ public class EnemyBehaviour : MonoBehaviour {
         _Bullet.GetComponent<Rigidbody>().AddForce(towerPivot.transform.forward * bulletForce);
          Destroy(_Bullet,3f);
     }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Player") Destroy(gameObject);
+    }
 }

@@ -6,8 +6,7 @@ public class EnemyBulletReaction : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-       
-        
+           
         Debug.Log(other);
                              
         if (other.tag == "Player")

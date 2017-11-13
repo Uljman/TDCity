@@ -24,34 +24,29 @@ public class TankMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if(!Stop)  Move();
+        if(!Stop && !Armored)  Move();
+        if (Armored) Defend();
 	}
 
     void Move()
-    {
-        Vector3 difference = new Vector3 (Player.transform.position.x - transform.position.x,0, Player.transform.position.z - transform.position.z);
-
-        float deltaPos = Player.transform.position.x - transform.position.x;
-
-        if (Armored)
-        {
-            float ang = Vector3.Angle(transform.forward, difference);
-            if (ang >= 90 || ang <= 85) { 
-                if(Player.transform.position.z > transform.position.z) transform.Rotate(0, (deltaPos / Mathf.Abs(deltaPos)) * Time.deltaTime * rotSpeed, 0);
-                else transform.Rotate(0, (-deltaPos / Mathf.Abs(deltaPos)) * Time.deltaTime * rotSpeed, 0);
-            }
-            Debug.Log(ang);
-            Debug.DrawRay(transform.position, transform.forward * 10,Color.green);
-            Debug.DrawRay(transform.position, difference * 10, Color.green);
-        }
-        else
-        {
-            transform.Translate(GetDirection() * Speed * Time.deltaTime);           
-        }
-
+    {       
+        transform.Translate(GetDirection() * Speed * Time.deltaTime,Space.Self);           
     }
 
-
+    public void Defend()
+    {
+        Vector3 difference = new Vector3(Player.transform.position.x - transform.position.x, 0, Player.transform.position.z - transform.position.z);
+        Debug.Log(Vector3.Angle(transform.right, difference));
+        float deltaPos = Player.transform.position.x - transform.position.x;
+        float ang = Vector3.Angle(transform.forward, difference);
+        if (ang >= 90 || ang <= 85)
+        {
+           
+        }
+      //  Debug.Log(ang);
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.green);
+        Debug.DrawRay(transform.position, difference * 10, Color.green);
+    }
     public Vector3 GetDirection()
     {
         Vector3 pP, tP; 

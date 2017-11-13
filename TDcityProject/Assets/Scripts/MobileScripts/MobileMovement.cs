@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class MobileMovement : MonoBehaviour {
 
@@ -28,11 +29,11 @@ public class MobileMovement : MonoBehaviour {
 	public void Move()
     {
         Vector2 touchCoords = Vector2.zero;
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             touchCoords = Input.GetTouch(0).position;
         }
-        if (Input.touchCount > 1)
+        if (Input.touchCount > 1 && Input.GetTouch(1).phase == TouchPhase.Began)
         {
             touchCoords = Input.GetTouch(1).position;
         }
@@ -48,23 +49,15 @@ public class MobileMovement : MonoBehaviour {
 
     public void Rotate()
     {
-        Vector2 touchCoords = Vector2.zero;
-        if (Input.touchCount == 1)
-        {
-             touchCoords = Input.GetTouch(0).position;
-        }
-        if (Input.touchCount > 1)
-        {
-            touchCoords = Input.GetTouch(1).position;
-        }
-        Vector2 direction = touchCoords - (Vector2)rotationButon.transform.position;
+        
+        Vector2 direction = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal_2"), CrossPlatformInputManager.GetAxis("Vertical_2"));
 
-            direction.Normalize();
-
-            float rotY = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-            Debug.Log(rotY);
+        //direction.Normalize();
+        Debug.Log(direction);
+      float rotY = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+      Debug.Log(rotY);
            
-            Player.transform.rotation = Quaternion.Euler(0, rotY, 0);
+      Player.transform.rotation = Quaternion.Euler(0, rotY, 0);
         
     }
     public void SetRotationState(int _State)

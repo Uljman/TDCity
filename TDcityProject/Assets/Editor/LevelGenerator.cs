@@ -18,6 +18,7 @@ public class LevelGenerator : Editor {
         {
             Debug.Log("Pressed create");
             lPar.GenerateLevel();
+            lPar.SortLevel();
         }
     }
 

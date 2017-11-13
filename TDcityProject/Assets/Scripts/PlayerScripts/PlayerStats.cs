@@ -3,6 +3,9 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
+
+//player  stast, load/save functions
 public class PlayerStats : MonoBehaviour {
 
     public int  shieldCount = 0 ;

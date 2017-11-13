@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+// Analyse state of a level
 public class LevelManager : MonoBehaviour {
     //[HideInInspector]
     public int EnemyCount = 0;
@@ -15,7 +18,7 @@ public class LevelManager : MonoBehaviour {
         
        
         lMan = this;
-        Cursor.visible = false;
+       // Cursor.visible = false;
        
         defeatScreen = GameObject.Find("DefeatScreen");
         victoryScreen = GameObject.Find("VictoryScreen");

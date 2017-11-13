@@ -18,10 +18,15 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
+        if (Player == null)
+        {
+            Player = GameObject.Find("Player");
+            offset = transform.position - Player.transform.position;
+        }
         if (Player) {
             if (restrictX) transform.position = new Vector3(transform.position.x, Player.transform.position.y + offset.y, Player.transform.position.z + offset.z);
             else if (restrictY) transform.position = new Vector3(Player.transform.position.x + offset.x, Player.transform.position.y + offset.y, transform.position.z);
-            else transform.position = Player.transform.position + offset;
+             else transform.position = Player.transform.position + offset;
         }  
 	}
 }
