@@ -46,9 +46,34 @@ public class LevelParametrs : MonoBehaviour {
         {
             if (colorMapping.color.Equals(pixelColor))
             {
-                Debug.Log("create pressed");
+                
                 Vector3 position = new Vector3(x * colorMapping.prefab.transform.localScale.x, 0, y * colorMapping.prefab.transform.localScale.z);
-                Instantiate(colorMapping.prefab, position, Quaternion.identity,levelContainer.transform);
+                Instantiate(colorMapping.prefab, position, Quaternion.identity,levelContainer.transform).name = colorMapping.prefab.name;
+            }
+        }
+    }
+    public void SortLevel()
+    {
+        GameObject[] levElArr = new GameObject[levelContainer.transform.childCount];// array of all elements under level container
+        GameObject Container;
+       for (int i=0;i < levelContainer.transform.childCount;i++)
+        {
+            levElArr[i] = levelContainer.transform.GetChild(i).gameObject;          
+        }
+
+       foreach(GameObject gO in levElArr)
+        {          
+           if(!levelContainer.transform.Find(gO.name+ "Container"))
+            {
+                Container = new GameObject(gO.name + "Container");              
+                Container.transform.parent = levelContainer.transform;              
+                Container.name = gO.name + "Container";
+                gO.transform.parent = Container.transform;
+  
+            }
+            else
+            {
+                gO.transform.parent = levelContainer.transform.Find(gO.name + "Container");
             }
         }
     }
