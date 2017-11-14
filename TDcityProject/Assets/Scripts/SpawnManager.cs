@@ -34,6 +34,7 @@ public class SpawnManager : MonoBehaviour {
             for (int i = 0; i < tankC; i++)
             {
                 Instantiate(Resources.Load("Tank", typeof(GameObject)), levelCont.transform.Find("TankSpawnPointContainer").GetChild(i).position, Quaternion.identity);
+                GameObject.Find("CameraHolder").GetComponent<LevelManager>().EnemyCount++;
             }
         }
     }

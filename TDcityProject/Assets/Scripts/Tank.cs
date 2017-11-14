@@ -48,9 +48,7 @@ public class Tank : MonoBehaviour {
 
         float rotY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg;
         towerPivot.transform.rotation = Quaternion.Euler(0, rotY + rotationOffset, 0);
-        Debug.DrawRay(towerPivot.position, Player.transform.position ,Color.cyan);
-        Debug.Log(towerPivot.position);
-       
+         
                
     }
 
