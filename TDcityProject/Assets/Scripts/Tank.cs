@@ -7,6 +7,7 @@ public class Tank : MonoBehaviour {
     public Transform towerPivot;
     public Transform Player;
     public Transform fPoint;
+    public Transform destroyEffect;
     public int bulletForce = 200;
     public float rotationOffset = 90;
     public float fireRate = 5f;
@@ -110,6 +111,14 @@ public class Tank : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player") Destroy(gameObject);
+        if (col.tag == "Player")
+        {
+            Transform clone = Instantiate(destroyEffect,transform.position,Quaternion.identity);
+
+            Destroy(gameObject);
+            Destroy(clone.gameObject,1.8f);
+
+
+        }
     }
 }

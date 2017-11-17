@@ -7,6 +7,7 @@ public class ModifySpawnPoints : EditorWindow {
 
     string sPToFind;
     Transform[] spawnPoints;
+    Transform prevSelectedObj;
     bool findPressed = false;
     [MenuItem("Tools/Custom")]
 	public static void ShowWindow()
@@ -44,17 +45,23 @@ public class ModifySpawnPoints : EditorWindow {
 
     void ShowSpawnPoints()
     {
-        
-        int elementsInThisRow = 0;
-        foreach (Transform child in spawnPoints)
-        {
-            //TODO: Go through every needed spawn point ,display all needed parametrs
-            
-           GUILayout.BeginVertical();
+          GUILayout.Box((Texture)Resources.Load("MapPreview", typeof(RenderTexture)));
+          int elementsInThisRow = 0;
+          foreach (Transform child in spawnPoints)
+          {
+            GUILayout.BeginVertical();
             if (child.name == "TankSpawnPoint" )
             {
                 GameObject TankT = Resources.Load("TankTexture", typeof(GameObject)) as GameObject;
-                GUILayout.Box(TankT.GetComponent<SpriteRenderer>().sprite.texture,GUILayout.Width(50),GUILayout.Height(50));      
+               
+                if(GUILayout.Button("", GUILayout.Width(20), GUILayout.Height(20)))
+                {
+                    //insert object highlight
+
+                    HighLightSP(child);
+                    if (prevSelectedObj) resetColor(prevSelectedObj);
+                    Debug.Log(child.position);
+                }
                 child.GetComponent<TankSpawnParametrs>().Armored = EditorGUILayout.Toggle("Armored", child.GetComponent<TankSpawnParametrs>().Armored, GUILayout.ExpandWidth(false));
                 elementsInThisRow++;
             }
@@ -66,8 +73,21 @@ public class ModifySpawnPoints : EditorWindow {
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
             }
-        }
-        
+        }      
+    }
 
+    void HighLightSP(Transform sP)
+    {
+        Material material = new Material(Shader.Find("Specular"));
+        material.color = Color.yellow;
+        sP.GetChild(0).GetComponent<Renderer>().sharedMaterial = material;
+        prevSelectedObj = sP;
+    }
+
+    void resetColor(Transform prGO)
+    {
+        Material material = new Material(Shader.Find("Specular"));
+        material.color = Color.white;
+        prGO.GetChild(0).GetComponent<Renderer>().sharedMaterial = material;
     }
 }
